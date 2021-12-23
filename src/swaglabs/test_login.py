@@ -6,12 +6,14 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 # Local libs
 
 
 class TestStandardUser:
-    
+
     def test_that_standard_user_can_log_in_successfully(self, driver):
         """ Verify Successful Login Functionality
 
@@ -29,4 +31,14 @@ class TestStandardUser:
           - username: standard_user, passwd: secret_sauce
           - Username: performance_glitch_user, passwd: secret_sauce
         """
+        username = "standard_user"
+        password = "secret_sauce"
+
+        driver.find_element(By.NAME,"user-name").send_keys(username)
+        driver.find_element(By.NAME,"password").send_keys(password)
+
+        driver.find_element(By.NAME,"login-button").send_keys(Keys.ENTER)
+
+        element = driver.find_element(By.CLASS_NAME,"title")
+        assert element.text == 'PRODUCTS'
         time.sleep(5)
