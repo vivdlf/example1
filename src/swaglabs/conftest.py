@@ -12,5 +12,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 def driver():
     driver = webdriver.Chrome()
     driver.get('https://www.saucedemo.com/')
+    driver.maximize_window()
     yield driver
     driver.close()
