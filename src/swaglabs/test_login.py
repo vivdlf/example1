@@ -1,5 +1,6 @@
 # Standard libs
 import pdb
+import time
 
 # Third Party Libs
 import pytest
@@ -28,4 +29,4 @@ class TestStandardUser:
           - username: standard_user, passwd: secret_sauce
           - Username: performance_glitch_user, passwd: secret_sauce
         """
-        pass
+        time.sleep(5)
