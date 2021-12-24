@@ -10,7 +10,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 
 @pytest.fixture
-
 def driver():
     driver = webdriver.Chrome()
     driver.get('https://www.saucedemo.com/')

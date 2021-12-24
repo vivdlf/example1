@@ -11,10 +11,12 @@ from selenium.webdriver.common.by import By
 
 # Local libs
 
-@pytest.mark.parametrize("username,password", [("standard_user", "secret_sauce"), ("performance_glitch_user", "secret_sauce")])
+
 class TestStandardUser:
 
-    def test_that_standard_user_can_log_in_successfully(self, driver,username,password):
+    @pytest.mark.parametrize("username,password",
+                             [("standard_user", "secret_sauce"), ("performance_glitch_user", "secret_sauce")])
+    def test_that_standard_user_can_log_in_successfully(self, driver, username, password):
         """ Verify Successful Login Functionality
 
         Given:
@@ -31,9 +33,6 @@ class TestStandardUser:
           - username: standard_user, passwd: secret_sauce
           - Username: performance_glitch_user, passwd: secret_sauce
         """
-        #username = "standard_user"
-        #password = "secret_sauce"
-
         driver.find_element(By.XPATH, "//input[@name='user-name']").send_keys(username)
         driver.find_element(By.XPATH, "//input[@name='password']").send_keys(password)
 
@@ -41,4 +40,28 @@ class TestStandardUser:
 
         element = driver.find_element(By.XPATH, "//span[@class='title']")
         assert element.text == 'PRODUCTS'
-        time.sleep(5)
+
+    @pytest.mark.parametrize("uname,pwd", [("locked_out_user", "secret_sauce")])
+    def test_locked_out_user_functionality(self, driver, uname, pwd):
+        """
+        Verify Locked Out User Functionality
+        Given:
+            - That the user has navigated to the login page (url: https://www.saucedemo.com/)
+        When:
+            - The user logs in with a blocked user
+        Expected:
+            - The user should be presented with the following error message below the password
+            fields: “Epic sadface: Username and password do not match any user in this service”
+        Note:
+            - This test should be conducted with the following user accounts:
+            - username: locked_out_user, passwd: secret_sauce
+        """
+        driver.find_element(By.XPATH, "//input[@name='user-name']").send_keys(uname)
+        driver.find_element(By.XPATH, "//input[@name='password']").send_keys(pwd)
+
+        driver.find_element(By.XPATH, "//input[@type='submit' and @id='login-button']").send_keys(Keys.ENTER)
+
+        element = driver.find_element(By.XPATH, "//h3[text()='Epic sadface: Sorry, this user has been locked out.']")
+        assert element.text == 'Epic sadface: Sorry, this user has been locked out.'
+
+
