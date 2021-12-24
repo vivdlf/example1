@@ -11,10 +11,10 @@ from selenium.webdriver.common.by import By
 
 # Local libs
 
-
+@pytest.mark.parametrize("username,password", [("standard_user", "secret_sauce"), ("performance_glitch_user", "secret_sauce")])
 class TestStandardUser:
 
-    def test_that_standard_user_can_log_in_successfully(self, driver):
+    def test_that_standard_user_can_log_in_successfully(self, driver,username,password):
         """ Verify Successful Login Functionality
 
         Given:
@@ -31,8 +31,8 @@ class TestStandardUser:
           - username: standard_user, passwd: secret_sauce
           - Username: performance_glitch_user, passwd: secret_sauce
         """
-        username = "standard_user"
-        password = "secret_sauce"
+        #username = "standard_user"
+        #password = "secret_sauce"
 
         driver.find_element(By.XPATH, "//input[@name='user-name']").send_keys(username)
         driver.find_element(By.XPATH, "//input[@name='password']").send_keys(password)
