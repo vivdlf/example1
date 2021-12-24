@@ -34,11 +34,11 @@ class TestStandardUser:
         username = "standard_user"
         password = "secret_sauce"
 
-        driver.find_element(By.NAME,"user-name").send_keys(username)
-        driver.find_element(By.NAME,"password").send_keys(password)
+        driver.find_element(By.XPATH, "//input[@name='user-name']").send_keys(username)
+        driver.find_element(By.XPATH, "//input[@name='password']").send_keys(password)
 
-        driver.find_element(By.NAME,"login-button").send_keys(Keys.ENTER)
+        driver.find_element(By.XPATH, "//input[@type='submit' and @id='login-button']").send_keys(Keys.ENTER)
 
-        element = driver.find_element(By.CLASS_NAME,"title")
+        element = driver.find_element(By.XPATH, "//span[@class='title']")
         assert element.text == 'PRODUCTS'
         time.sleep(5)
