@@ -8,7 +8,7 @@ class CartPage:
 
     def create_xpath(self, name):
         # Create the xpath for each product using the tag name locator
-        return f"//div[text()='" + name + "']"
+        return f"//div[text()=' {name} ']"
 
     def verify_products_presence(self, product):
         # Verify the presence of a product(s) in the cart
